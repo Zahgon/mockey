@@ -27,13 +27,9 @@ import (
 	"unsafe"
 )
 
-func FuncPCForName(name string) uintptr {
-	return nameMap[name]
-}
+func FuncPCForName(name string) uintptr { _ = "STUB: not implemented"; return 0 }
 
-func FuncList() []*runtime.Func {
-	return funcs
-}
+func FuncList() []*runtime.Func { _ = "STUB: not implemented"; return nil }
 
 var (
 	nameMap = map[string]uintptr{}
@@ -69,12 +65,7 @@ type functab struct {
 	funcoff  uint32
 }
 
-func getMainModuleData() unsafe.Pointer {
-	var f = getMainModuleData
-	entry := **(**uintptr)(unsafe.Pointer(&f))
-	_, pointer := findfunc(entry)
-	return pointer
-}
+func getMainModuleData() unsafe.Pointer { _ = "STUB: not implemented"; return *new(unsafe.Pointer) }
 
 //go:linkname findfunc runtime.findfunc
 func findfunc(_ uintptr) (unsafe.Pointer, unsafe.Pointer)

@@ -24,28 +24,10 @@ type mockOption struct {
 
 type mockOptionFn func(*mockOption)
 
-func OptUnsafe(o *mockOption) {
-	o.unsafe = true
-}
+func OptUnsafe(o *mockOption) { _ = "STUB: not implemented"; return }
 
-func OptGeneric(o *mockOption) {
-	var t = true
-	o.generic = &t
-}
+func OptGeneric(o *mockOption) { _ = "STUB: not implemented"; return }
 
-func OptMethod(o *mockOption) {
-	var t = true
-	o.method = &t
-}
+func OptMethod(o *mockOption) { _ = "STUB: not implemented"; return }
 
-func resolveMockOpt(fn ...mockOptionFn) *mockOption {
-	opt := &mockOption{
-		unsafe:  false,
-		generic: nil,
-		method:  nil,
-	}
-	for _, f := range fn {
-		f(opt)
-	}
-	return opt
-}
+func resolveMockOpt(fn ...mockOptionFn) *mockOption { _ = "STUB: not implemented"; return nil }

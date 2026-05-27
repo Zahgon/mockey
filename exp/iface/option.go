@@ -21,7 +21,6 @@ package iface
 
 import (
 	"github.com/bytedance/mockey/exp/iface/internal"
-	"github.com/bytedance/mockey/internal/tool"
 )
 
 type option struct {
@@ -30,36 +29,10 @@ type option struct {
 
 type OptionFn func(*option)
 
-func resolveOpt(fn ...OptionFn) *option {
-	opt := &option{
-		selector: internal.NewCombinedSelector(internal.CTAnd),
-	}
-	for _, f := range fn {
-		f(opt)
-	}
-	return opt
-}
+func resolveOpt(fn ...OptionFn) *option { _ = "STUB: not implemented"; return nil }
 
 // SelectPkg select the package name exactly match the given names, such as "github.com/bytedance/mockey"
-func SelectPkg(names ...string) OptionFn {
-	tool.Assert(len(names) > 0, "SelectPkg: at least one package name is required")
-	return func(opt *option) {
-		s := internal.NewCombinedSelector(internal.CTOr)
-		for _, name := range names {
-			s.Add(internal.NewPkgSelector(name, internal.MMExact))
-		}
-		opt.selector.Add(s)
-	}
-}
+func SelectPkg(names ...string) OptionFn { _ = "STUB: not implemented"; return *new(OptionFn) }
 
 // SelectType select the type name exactly match the given names, such as "MockBuilder"
-func SelectType(names ...string) OptionFn {
-	tool.Assert(len(names) > 0, "SelectType: at least one type name is required")
-	return func(opt *option) {
-		s := internal.NewCombinedSelector(internal.CTOr)
-		for _, name := range names {
-			s.Add(internal.NewTypeSelector(name, internal.MMExact))
-		}
-		opt.selector.Add(s)
-	}
-}
+func SelectType(names ...string) OptionFn { _ = "STUB: not implemented"; return *new(OptionFn) }

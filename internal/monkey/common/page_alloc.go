@@ -19,14 +19,6 @@
 
 package common
 
-import (
-	"syscall"
-)
+func allocate(n int) ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }
 
-func allocate(n int) ([]byte, error) {
-	return syscall.Mmap(-1, 0, int(n), syscall.PROT_READ|syscall.PROT_WRITE, syscall.MAP_ANON|syscall.MAP_PRIVATE)
-}
-
-func free(b []byte) error {
-	return syscall.Munmap(b)
-}
+func free(b []byte) error { _ = "STUB: not implemented"; return nil }

@@ -18,12 +18,6 @@ package fn
 
 import (
 	"reflect"
-	"sync/atomic"
-
-	"github.com/bytedance/mockey/internal/monkey"
-	monkeyFn "github.com/bytedance/mockey/internal/monkey/fn"
-	"github.com/bytedance/mockey/internal/monkey/inst"
-	"github.com/bytedance/mockey/internal/tool"
 )
 
 type Analyzer interface {
@@ -82,60 +76,42 @@ var (
 )
 
 func (a *AnalyzerImpl) TargetValue() reflect.Value {
-	return a.targetValue
+	_ = "STUB: not implemented"
+	return *new(reflect.Value)
 }
 
 func (a *AnalyzerImpl) TargetType() reflect.Type {
-	return a.targetType
+	_ = "STUB: not implemented"
+	return *new(reflect.Type)
 }
 
 func (a *AnalyzerImpl) RuntimeTargetType() reflect.Type {
-	return a.runtimeTargetType
+	_ = "STUB: not implemented"
+	return *new(reflect.Type)
 }
 
 func (a *AnalyzerImpl) RuntimeTargetValue() reflect.Value {
-	return a.runtimeTargetValue
+	_ = "STUB: not implemented"
+	return *new(reflect.Value)
 }
 
-func (a *AnalyzerImpl) IsGeneric() bool {
-	return a.generic
-}
+func (a *AnalyzerImpl) IsGeneric() bool { _ = "STUB: not implemented"; return false }
 
 func (a *AnalyzerImpl) GenericInfo() GenericInfo {
-	return a.runtimeGenericInfo
+	_ = "STUB: not implemented"
+	return *new(GenericInfo)
 }
 
 // runtimeTargetValueAndGenericInfo0 obtains the runtime value of the target and the generic information.
 func (a *AnalyzerImpl) runtimeTargetValueAndGenericInfo0() (reflect.Value, GenericInfo) {
-	if !a.IsGeneric() {
-		return a.TargetValue(), 0
-	}
-	tool.DebugPrintf("[Analyzer.init] try to analyze generic\n")
-	atomic.AddInt64(&genericAnalyzedCount, 1)
-	// Obtain the jump address and generic information address of the generic function through instruction analysis
-	jumpAddr, genericInfoAddr := inst.GetGenericAddr(a.TargetValue().Pointer(), 10000)
-	// Create a function value based on the runtime type and the obtained jump address
-	runtimeTarget, genericInfo := monkeyFn.MakeFunc(a.RuntimeTargetType(), jumpAddr), (GenericInfo)(genericInfoAddr)
-
-	// Fallback genericInfo: obtains generic information by means of actual execution
-	if genericInfo == 0 {
-		tool.DebugPrintf("[Analyzer.init] fallback genericInfo\n")
-		atomic.AddInt64(&genericFallbackCount, 1)
-
-		genericInfoHook := tool.NewFuncTypeByInsertIn(a.TargetType(), genericInfoType)
-		genericInfoAdapter := a.InputAdapter("fallbackGenericInfo", genericInfoHook)
-
-		hook := reflect.MakeFunc(a.RuntimeTargetType(), func(args []reflect.Value) []reflect.Value {
-			genericInfo = genericInfoAdapter(args)[0].Interface().(GenericInfo) // extract genericInfo from args
-			return tool.MakeEmptyOutArgs(a.TargetType())
-		})
-
-		proxy := reflect.New(a.RuntimeTargetType())
-
-		patch := monkey.PatchValue(runtimeTarget, hook, proxy, true)
-		tool.ReflectCall(a.TargetValue(), tool.MakeEmptyInArgs(a.TargetType()))
-		patch.Unpatch()
-	}
-	tool.DebugPrintf("[Analyzer.init] analyze generic finish, fallback statistics: %d/%d\n", genericFallbackCount, genericAnalyzedCount)
-	return runtimeTarget, genericInfo
+	_ = "STUB: not implemented"
+	return *new(reflect.Value), *new(GenericInfo)
 }
+
+// Obtain the jump address and generic information address of the generic function through instruction analysis
+
+// Create a function value based on the runtime type and the obtained jump address
+
+// Fallback genericInfo: obtains generic information by means of actual execution
+
+// extract genericInfo from args

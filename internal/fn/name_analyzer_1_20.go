@@ -22,18 +22,16 @@ package fn
 import (
 	"reflect"
 	"regexp"
-	"runtime"
 	"strings"
 
 	"github.com/bytedance/mockey/internal/tool"
 )
 
-func NewNameAnalyzerByValue(fv reflect.Value) *NameAnalyzer {
-	return NewNameAnalyzer(runtime.FuncForPC(fv.Pointer()).Name(), true)
-}
+func NewNameAnalyzerByValue(fv reflect.Value) *NameAnalyzer { _ = "STUB: not implemented"; return nil }
 
 func NewNameAnalyzer(fullname string, allowDebugLog bool) *NameAnalyzer {
-	return (&NameAnalyzer{fullName: fullname}).init(allowDebugLog)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 const (
@@ -107,41 +105,26 @@ func (a *NameAnalyzer) init(allowDebugLog bool) *NameAnalyzer {
 	return a
 }
 
-func (a *NameAnalyzer) FuncName() string {
-	return a.funcName
-}
+func (a *NameAnalyzer) FuncName() string { _ = "STUB: not implemented"; return "" }
 
-func (a *NameAnalyzer) IsGeneric() bool {
-	return strings.Contains(a.fullName, genericSubstr)
-}
+func (a *NameAnalyzer) IsGeneric() bool { _ = "STUB: not implemented"; return false }
 
-func (a *NameAnalyzer) HasMiddleName() bool {
-	return a.middleName != ""
-}
+func (a *NameAnalyzer) HasMiddleName() bool { _ = "STUB: not implemented"; return false }
 
-func (a *NameAnalyzer) IsExported() bool {
-	firstLetter := a.funcName[0]
-	return firstLetter > 'A' && firstLetter < 'Z'
-}
+func (a *NameAnalyzer) IsExported() bool { _ = "STUB: not implemented"; return false }
 
-func (a *NameAnalyzer) IsGlobal() bool {
-	return a.middleName == globalSubstr
-}
+func (a *NameAnalyzer) IsGlobal() bool { _ = "STUB: not implemented"; return false }
 
-func (a *NameAnalyzer) IsPtrReceiver() bool {
-	return strings.HasPrefix(a.middleName, ptrReceiverSubstr1) && strings.HasSuffix(a.middleName, ptrReceiverSubstr2)
-}
+func (a *NameAnalyzer) IsPtrReceiver() bool { _ = "STUB: not implemented"; return false }
 
-func (a *NameAnalyzer) IsAnonymousFormat() bool {
-	return anonymousNameReg.MatchString(a.funcName)
-}
+func (a *NameAnalyzer) IsAnonymousFormat() bool { _ = "STUB: not implemented"; return false }
 
 // PkgName returns the package name
 func (a *NameAnalyzer) PkgName() string {
-	return a.pkgName
+	_ = "STUB: not implemented"
+
+	// MiddleName returns the middle name (type name for methods)
+	return ""
 }
 
-// MiddleName returns the middle name (type name for methods)
-func (a *NameAnalyzer) MiddleName() string {
-	return a.middleName
-}
+func (a *NameAnalyzer) MiddleName() string { _ = "STUB: not implemented"; return "" }

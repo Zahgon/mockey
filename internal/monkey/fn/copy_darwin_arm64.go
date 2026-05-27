@@ -17,5 +17,7 @@
 package fn
 
 func copyCode(targetCode, oriCode []byte) {
+	_ = "STUB: not implemented"
 	// TODO: arm64 copy
+	return
 }

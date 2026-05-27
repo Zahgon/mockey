@@ -18,8 +18,6 @@ package mockey
 
 import (
 	"reflect"
-
-	"github.com/bytedance/mockey/internal/tool"
 )
 
 type methodOption struct {
@@ -36,18 +34,8 @@ type methodOptionFn func(*methodOption)
 // var funcType func() [32]byte
 // fn := GetMethod(sha256.New(), "checkSum", OptUnexportedTargetType(funcType))
 func OptUnexportedTargetType(i interface{}) methodOptionFn {
-	tool.AssertFunc(i)
-	return func(option *methodOption) {
-		option.unexportedTargetType = reflect.TypeOf(i)
-	}
+	_ = "STUB: not implemented"
+	return *new(methodOptionFn)
 }
 
-func resolveMethodOpt(fn ...methodOptionFn) *methodOption {
-	opt := &methodOption{
-		unexportedTargetType: nil,
-	}
-	for _, f := range fn {
-		f(opt)
-	}
-	return opt
-}
+func resolveMethodOpt(fn ...methodOptionFn) *methodOption { _ = "STUB: not implemented"; return nil }

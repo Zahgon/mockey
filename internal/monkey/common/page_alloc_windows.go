@@ -20,8 +20,6 @@
 package common
 
 import (
-	"fmt"
-
 	"golang.org/x/sys/windows"
 )
 
@@ -41,28 +39,6 @@ func init() {
 	virtualFree = kernel32.NewProc("VirtualFree")
 }
 
-func allocate(n int) ([]byte, error) {
-	ptr, _, _ := virtualAlloc.Call(
-		0,
-		uintptr(n),
-		_MEM_COMMIT|_MEM_RESERVE,
-		_PAGE_READWRITE,
-	)
-	if ptr == 0 {
-		return nil, fmt.Errorf("VirtualAlloc failed: %d", ptr)
-	}
-	return BytesOf(ptr, n), nil
-}
+func allocate(n int) ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }
 
-func free(b []byte) error {
-	res, _, err := virtualFree.Call(
-		PtrOf(b),
-		uintptr(len(b)),
-		_MEM_DECOMMIT,
-	)
-	if res == 0 {
-		return fmt.Errorf("VirtualFree failed: (%d)%w", res, err)
-	}
-
-	return nil
-}
+func free(b []byte) error { _ = "STUB: not implemented"; return nil }

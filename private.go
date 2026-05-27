@@ -22,4 +22,4 @@ type private interface {
 
 type Private struct{}
 
-func (*Private) private() {}
+func (*Private) private() { _ = "STUB: not implemented"; return }

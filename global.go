@@ -16,34 +16,15 @@
 
 package mockey
 
-import (
-	"reflect"
-
-	"github.com/bytedance/mockey/internal/tool"
-	"github.com/smartystreets/goconvey/convey"
-)
-
 var gMocker = make([]map[uintptr]mockerInstance, 0)
 
 func init() {
 	gMocker = append(gMocker, make(map[uintptr]mockerInstance))
 }
 
-func addToGlobal(mocker mockerInstance) {
-	key := mocker.key()
-	tool.DebugPrintf("[addToGlobal] 0x%x added\n", key)
-	last, ok := gMocker[len(gMocker)-1][key]
-	if ok {
-		tool.Assert(!ok, "re-mock %v, previous mock at: %v", last.name(), last.caller())
-	}
-	gMocker[len(gMocker)-1][key] = mocker
-}
+func addToGlobal(mocker mockerInstance) { _ = "STUB: not implemented"; return }
 
-func removeFromGlobal(mocker mockerInstance) {
-	key := mocker.key()
-	tool.DebugPrintf("[removeFromGlobal] 0x%x removed\n", key)
-	delete(gMocker[len(gMocker)-1], key)
-}
+func removeFromGlobal(mocker mockerInstance) { _ = "STUB: not implemented"; return }
 
 // PatchConvey creates a test context that automatically manages mock lifecycles.
 // It wraps around the `convey.Convey` function and adds automatic mock cleanup functionality.
@@ -75,24 +56,7 @@ func removeFromGlobal(mocker mockerInstance) {
 //	    // Only innerFunc is cleaned up, outerFunc remains mocked
 //	})
 //	// All mocks are cleaned up
-func PatchConvey(items ...interface{}) {
-	for i, item := range items {
-		if reflect.TypeOf(item).Kind() == reflect.Func {
-			items[i] = reflect.MakeFunc(reflect.TypeOf(item), func(args []reflect.Value) []reflect.Value {
-				gMocker = append(gMocker, make(map[uintptr]mockerInstance))
-				defer func() {
-					for _, mocker := range gMocker[len(gMocker)-1] {
-						mocker.unPatch()
-					}
-					gMocker = gMocker[:len(gMocker)-1]
-				}()
-				return tool.ReflectCall(reflect.ValueOf(item), args)
-			}).Interface()
-		}
-	}
-
-	convey.Convey(items...)
-}
+func PatchConvey(items ...interface{}) { _ = "STUB: not implemented"; return }
 
 // PatchRun creates a test context that automatically manages mock lifecycles.
 //
@@ -132,16 +96,7 @@ func PatchConvey(items ...interface{}) {
 //	})
 //	// All mocks are cleaned up
 //	resultA := functionA() // Returns original value
-func PatchRun(f func()) {
-	gMocker = append(gMocker, make(map[uintptr]mockerInstance))
-	defer func() {
-		for _, mocker := range gMocker[len(gMocker)-1] {
-			mocker.unPatch()
-		}
-		gMocker = gMocker[:len(gMocker)-1]
-	}()
-	f()
-}
+func PatchRun(f func()) { _ = "STUB: not implemented"; return }
 
 // UnPatchAll unpatch all mocks in current `PatchConvey` or `PatchRun` context. If the caller is out of `PatchConvey`
 // or `PatchRun`, it will unpatch all mocks.
@@ -165,8 +120,4 @@ func PatchRun(f func()) {
 //			UnpatchAll()
 //		}
 //	}
-func UnPatchAll() {
-	for _, mocker := range gMocker[len(gMocker)-1] {
-		mocker.unPatch()
-	}
-}
+func UnPatchAll() { _ = "STUB: not implemented"; return }

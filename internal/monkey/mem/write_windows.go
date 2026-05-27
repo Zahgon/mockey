@@ -16,15 +16,4 @@
 
 package mem
 
-import (
-	"github.com/bytedance/mockey/internal/monkey/common"
-	"github.com/bytedance/mockey/internal/monkey/mem/prot"
-)
-
-func Write(addr uintptr, data []byte) error {
-	if err := prot.MProtectRWX(addr); err != nil {
-		return err
-	}
-	copy(common.BytesOf(addr, len(data)), data)
-	return nil
-}
+func Write(addr uintptr, data []byte) error { _ = "STUB: not implemented"; return nil }

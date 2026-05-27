@@ -19,8 +19,6 @@
 
 package internal
 
-import "strings"
-
 type Selector interface {
 	Match(info *funcInfo) bool
 }
@@ -33,11 +31,8 @@ const (
 type CombineType int
 
 func NewCombinedSelector(combineType CombineType, selectors ...Selector) *CombinedSelector {
-	return &CombinedSelector{
-		combineType: combineType,
-		selectors:   selectors,
-		inverse:     false,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type CombinedSelector struct {
@@ -47,38 +42,13 @@ type CombinedSelector struct {
 }
 
 func (s *CombinedSelector) Match(info *funcInfo) (res bool) {
-	defer func() {
-		if s.inverse {
-			res = !res
-		}
-	}()
-	switch s.combineType {
-	case CTAnd:
-		for _, sel := range s.selectors {
-			if !sel.Match(info) {
-				return false
-			}
-		}
-		return true
-	case CTOr:
-		for _, sel := range s.selectors {
-			if sel.Match(info) {
-				return true
-			}
-		}
-		return false
-	default:
-		panic("not here")
-	}
+	_ = "STUB: not implemented"
+	return false
 }
 
-func (s *CombinedSelector) Add(selectors ...Selector) {
-	s.selectors = append(s.selectors, selectors...)
-}
+func (s *CombinedSelector) Add(selectors ...Selector) { _ = "STUB: not implemented"; return }
 
-func (s *CombinedSelector) Not() {
-	s.inverse = true
-}
+func (s *CombinedSelector) Not() { _ = "STUB: not implemented"; return }
 
 const (
 	MMExact   MatchMode = 0
@@ -87,22 +57,11 @@ const (
 
 type MatchMode int
 
-func (m MatchMode) match(a, b string) bool {
-	switch m {
-	case MMExact:
-		return a == b
-	case MMContain:
-		return strings.Contains(a, b)
-	default:
-		panic("not here")
-	}
-}
+func (m MatchMode) match(a, b string) bool { _ = "STUB: not implemented"; return false }
 
 func NewPkgSelector(name string, mode MatchMode) PkgSelector {
-	return PkgSelector{
-		mode: mode,
-		name: name,
-	}
+	_ = "STUB: not implemented"
+	return *new(PkgSelector)
 }
 
 type PkgSelector struct {
@@ -110,15 +69,11 @@ type PkgSelector struct {
 	name string
 }
 
-func (s PkgSelector) Match(info *funcInfo) bool {
-	return s.mode.match(info.Analyzer.PkgName(), s.name)
-}
+func (s PkgSelector) Match(info *funcInfo) bool { _ = "STUB: not implemented"; return false }
 
 func NewTypeSelector(name string, mode MatchMode) TypeSelector {
-	return TypeSelector{
-		mode: mode,
-		name: name,
-	}
+	_ = "STUB: not implemented"
+	return *new(TypeSelector)
 }
 
 type TypeSelector struct {
@@ -126,9 +81,4 @@ type TypeSelector struct {
 	name string
 }
 
-func (s TypeSelector) Match(info *funcInfo) bool {
-	typeName := info.Analyzer.MiddleName()
-	typeName = strings.TrimPrefix(typeName, "(*")
-	typeName = strings.TrimSuffix(typeName, ")")
-	return s.mode.match(typeName, s.name)
-}
+func (s TypeSelector) Match(info *funcInfo) bool { _ = "STUB: not implemented"; return false }

@@ -18,27 +18,14 @@ package common
 
 import (
 	"syscall"
-
-	"github.com/bytedance/mockey/internal/tool"
 )
 
 var pageSize = uintptr(syscall.Getpagesize())
 
-func PageOf(ptr uintptr) uintptr {
-	return ptr &^ (pageSize - 1)
-}
+func PageOf(ptr uintptr) uintptr { _ = "STUB: not implemented"; return 0 }
 
-func PageSize() int {
-	return int(pageSize)
-}
+func PageSize() int { _ = "STUB: not implemented"; return 0 }
 
-func AllocatePage() []byte {
-	page, err := allocate(int(pageSize))
-	tool.Assert(err == nil, "allocate page failed: %v", err)
-	return page
-}
+func AllocatePage() []byte { _ = "STUB: not implemented"; return nil }
 
-func ReleasePage(mem []byte) {
-	err := free(mem)
-	tool.Assert(err == nil, "free page failed: %v", err)
-}
+func ReleasePage(mem []byte) { _ = "STUB: not implemented"; return }

@@ -18,8 +18,6 @@ package mockey
 
 import (
 	"sync"
-
-	"github.com/bytedance/mockey/internal/tool"
 )
 
 type SequenceOpt interface {
@@ -48,42 +46,16 @@ type sequenceValue struct {
 	t int
 }
 
-func (s *sequence) GetNext() []interface{} {
-	s.readLock.Lock()
-	tool.Assert(len(s.values) > 0, "sequence is empty")
-
-	seqV := s.values[s.curV]
-	s.curT++
-	if s.curT >= seqV.t {
-		s.curT = 0
-		s.curV++
-		if s.curV >= len(s.values) {
-			s.curV = 0
-		}
-	}
-	s.readLock.Unlock()
-	return seqV.v
-}
+func (s *sequence) GetNext() []interface{} { _ = "STUB: not implemented"; return nil }
 
 func (s *sequence) Then(value ...interface{}) sequenceOpt {
-	s.values = append(s.values, &sequenceValue{
-		v: value,
-		t: 1,
-	})
-	return s
+	_ = "STUB: not implemented"
+	return *new(sequenceOpt)
 }
 
-func (s *sequence) Times(t int) sequenceOpt {
-	tool.Assert(t > 0, "return times should more than 0")
-	s.values[len(s.values)-1].t = t
-	return s
-}
+func (s *sequence) Times(t int) sequenceOpt { _ = "STUB: not implemented"; return *new(sequenceOpt) }
 
 func Sequence(value ...interface{}) sequenceOpt {
-	seq := &sequence{}
-	if len(value) == 0 {
-		return seq
-	}
-	seq.Then(value...)
-	return seq
+	_ = "STUB: not implemented"
+	return *new(sequenceOpt)
 }

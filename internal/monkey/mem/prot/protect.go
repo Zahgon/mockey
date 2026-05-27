@@ -17,6 +17,4 @@
 package prot
 
 // MProtectRX changes the protection mode of the target memory to "read/execute".
-func MProtectRX(b []byte) error {
-	return mProtectRX(b)
-}
+func MProtectRX(b []byte) error { _ = "STUB: not implemented"; return nil }

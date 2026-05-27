@@ -26,10 +26,7 @@ import (
 	"github.com/bytedance/mockey/internal/monkey/linkname"
 )
 
-func doStopTheWorld() (resume func()) {
-	w := stopTheWorld(stwForTestResetDebugLog)
-	return func() { startTheWorld(w) }
-}
+func doStopTheWorld() (resume func()) { _ = "STUB: not implemented"; return nil }
 
 const stwForTestResetDebugLog = 16
 

@@ -20,16 +20,9 @@ import (
 	"unsafe"
 )
 
-func GetGoroutineID() int64 {
-	g := getG()
-	offset := getGGoroutineIDOffset()
-	p := (*int64)(unsafe.Pointer(uintptr(g) + offset))
-	return *p
-}
+func GetGoroutineID() int64 { _ = "STUB: not implemented"; return 0 }
 
 func getG() unsafe.Pointer
 
 // getGGoroutineIDOffset Get the goroutine ID offset for the current Go version
-func getGGoroutineIDOffset() uintptr {
-	return gGoroutineIDOffset
-}
+func getGGoroutineIDOffset() uintptr { _ = "STUB: not implemented"; return 0 }

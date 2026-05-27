@@ -17,10 +17,7 @@
 package prot
 
 import (
-	"reflect"
 	"syscall"
-
-	"github.com/bytedance/mockey/internal/monkey/common"
 )
 
 const (
@@ -29,23 +26,13 @@ const (
 
 var procVirtualProtect = syscall.NewLazyDLL("kernel32.dll").NewProc("VirtualProtect")
 
-func MProtectRWX(addr uintptr) error {
-	return mProtectPage(common.PageOf(addr), protectRWX)
-}
+func MProtectRWX(addr uintptr) error { _ = "STUB: not implemented"; return nil }
 
-func mProtectRX(b []byte) error {
-	return MProtectRWX(common.PtrOf(b))
-}
+func mProtectRX(b []byte) error { _ = "STUB: not implemented"; return nil }
 
-func mProtectPage(page, prot uintptr) error {
-	var ori uint
-	return virtualProtect(page, common.PageSize(), uint32(prot), common.PtrAt(reflect.ValueOf(&ori)))
-}
+func mProtectPage(page, prot uintptr) error { _ = "STUB: not implemented"; return nil }
 
 func virtualProtect(lpAddress uintptr, dwSize int, flNewProtect uint32, lpflOldProtect uintptr) error {
-	ret, _, _ := procVirtualProtect.Call(lpAddress, uintptr(dwSize), uintptr(flNewProtect), lpflOldProtect)
-	if ret == 0 {
-		return syscall.GetLastError()
-	}
+	_ = "STUB: not implemented"
 	return nil
 }

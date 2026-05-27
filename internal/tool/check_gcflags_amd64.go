@@ -16,39 +16,8 @@
 
 package tool
 
-import (
-	"reflect"
-	"unsafe"
+func fn() { _ = "STUB: not implemented"; return }
 
-	"golang.org/x/arch/x86/x86asm"
-)
+func fn2() { _ = "STUB: not implemented"; return }
 
-func fn() {
-}
-
-func fn2() {
-	fn()
-}
-
-func IsGCFlagsSet() bool {
-	var asm []byte
-	header := (*reflect.SliceHeader)(unsafe.Pointer(&asm))
-	header.Data = reflect.ValueOf(fn2).Pointer()
-	header.Len = 1000
-	header.Cap = 1000
-
-	flag := false
-	pos := 0
-	for pos < len(asm) {
-		inst, _ := x86asm.Decode(asm[pos:], 64)
-		if inst.Op == x86asm.RET {
-			break
-		}
-		if inst.Op == x86asm.CALL {
-			flag = true
-			break
-		}
-		pos += int(inst.Len)
-	}
-	return flag
-}
+func IsGCFlagsSet() bool { _ = "STUB: not implemented"; return false }

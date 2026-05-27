@@ -19,6 +19,4 @@
 
 package sysmon
 
-func SuspendSysmon() (resume func()) {
-	return func() {}
-}
+func SuspendSysmon() (resume func()) { _ = "STUB: not implemented"; return nil }

@@ -23,10 +23,7 @@ import (
 	_ "unsafe"
 )
 
-func initDuffFunc() {
-	duffcopy = duffcopy0
-	duffzero = duffzero0
-}
+func initDuffFunc() { _ = "STUB: not implemented"; return }
 
 //go:linkname duffcopy0 runtime.duffcopy
 func duffcopy0()

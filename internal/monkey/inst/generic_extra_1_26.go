@@ -19,18 +19,4 @@
 
 package inst
 
-import (
-	"reflect"
-
-	"github.com/bytedance/mockey/internal/monkey/fn"
-	"github.com/bytedance/mockey/internal/monkey/linkname"
-)
-
-func initDuffFunc() {
-	if duffcopyPC := linkname.FuncPCForName("runtime.duffcopy"); duffcopyPC > 0 {
-		duffcopy = fn.MakeFunc(reflect.TypeOf(duffcopy), duffcopyPC).Interface().(func())
-	}
-	if duffzeroPC := linkname.FuncPCForName("runtime.duffzero"); duffzeroPC > 0 {
-		duffzero = fn.MakeFunc(reflect.TypeOf(duffzero), duffzeroPC).Interface().(func())
-	}
-}
+func initDuffFunc() { _ = "STUB: not implemented"; return }

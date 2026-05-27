@@ -23,10 +23,7 @@ import (
 	_ "unsafe"
 )
 
-func doStopTheWorld() (resume func()) {
-	stopTheWorld("mockey")
-	return func() { startTheWorld() }
-}
+func doStopTheWorld() (resume func()) { _ = "STUB: not implemented"; return nil }
 
 //go:linkname stopTheWorld runtime.stopTheWorld
 func stopTheWorld(reason string)

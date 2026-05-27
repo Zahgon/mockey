@@ -16,25 +16,16 @@
 
 package inst
 
-import "unsafe"
+func BranchTo(to uintptr) (res []byte) { _ = "STUB: not implemented"; return nil }
 
-func BranchTo(to uintptr) (res []byte) {
-	res = append(res, rdxMOV(to)...)         // MOVABS RDX, to
-	res = append(res, []byte{0xff, 0xe2}...) // JMP RDX
-	return
-}
+// MOVABS RDX, to
+// JMP RDX
 
-func BranchInto(to uintptr) (res []byte) {
-	res = append(res, rdxMOV(to)...)         // MOVABS RDX, to
-	res = append(res, []byte{0xff, 0x22}...) // JMP [RDX]
-	return
-}
+func BranchInto(to uintptr) (res []byte) { _ = "STUB: not implemented"; return nil }
+
+// MOVABS RDX, to
+// JMP [RDX]
 
 // rdxMOV moves the 64bit value to rdx register, using the following instruction:
 // MOVABS RDX, val
-func rdxMOV(val uintptr) []byte {
-	res := make([]byte, unsafe.Sizeof(val))
-	*(*uintptr)(unsafe.Pointer(&res[0])) = val
-	res = append([]byte{0x48, 0xba}, res...)
-	return res
-}
+func rdxMOV(val uintptr) []byte { _ = "STUB: not implemented"; return nil }

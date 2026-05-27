@@ -16,30 +16,8 @@
 
 package tool
 
-import (
-	"fmt"
-	"reflect"
-)
+func Assert(b bool, fmts ...interface{}) { _ = "STUB: not implemented"; return }
 
-func Assert(b bool, fmts ...interface{}) {
-	if !b {
-		var fmtStr string
-		if len(fmts) == 0 {
-			fmtStr = "unexpected happened"
-		} else if _, ok := fmts[0].(string); !ok {
-			fmtStr = "%+v"
-		} else {
-			fmtStr = fmts[0].(string)
-			fmts = fmts[1:]
-		}
-		panic(fmt.Sprintf(fmtStr, fmts...))
-	}
-}
+func AssertFunc(target interface{}) { _ = "STUB: not implemented"; return }
 
-func AssertFunc(target interface{}) {
-	Assert(reflect.TypeOf(target).Kind() == reflect.Func, "'%v' is not a function", target)
-}
-
-func AssertPtr(ptr interface{}) {
-	Assert(reflect.TypeOf(ptr).Kind() == reflect.Ptr, "'%v' is not a pointer", ptr)
-}
+func AssertPtr(ptr interface{}) { _ = "STUB: not implemented"; return }

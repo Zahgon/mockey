@@ -18,25 +18,10 @@ package common
 
 import (
 	"reflect"
-	"unsafe"
 )
 
-func PtrOf(val []byte) uintptr {
-	return (*reflect.SliceHeader)(unsafe.Pointer(&val)).Data
-}
+func PtrOf(val []byte) uintptr { _ = "STUB: not implemented"; return 0 }
 
-func PtrAt(val reflect.Value) uintptr {
-	type value struct {
-		_   uintptr
-		ptr unsafe.Pointer
-	}
-	return uintptr((*value)(unsafe.Pointer(&val)).ptr)
-}
+func PtrAt(val reflect.Value) uintptr { _ = "STUB: not implemented"; return 0 }
 
-func BytesOf(addr uintptr, size int) (res []byte) {
-	h := (*reflect.SliceHeader)(unsafe.Pointer(&res))
-	h.Data = addr
-	h.Len = size
-	h.Cap = size
-	return res
-}
+func BytesOf(addr uintptr, size int) (res []byte) { _ = "STUB: not implemented"; return nil }

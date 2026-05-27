@@ -18,40 +18,18 @@ package fn
 
 import (
 	"reflect"
-	"unsafe"
-
-	"github.com/bytedance/mockey/internal/monkey/common"
-	"github.com/bytedance/mockey/internal/monkey/mem/prot"
-	"github.com/bytedance/mockey/internal/tool"
 )
 
 // InjectInto injects the raw codes into the target to make a new function. The target is the target function pointer.
-func InjectInto(target reflect.Value, fnCode []byte) {
-	vt := target.Type()
-	tool.Assert(vt.Kind() == reflect.Ptr, "target is not a pointer")
-	tool.Assert(vt.Elem().Kind() == reflect.Func, "target is not a function pointer")
+func InjectInto(target reflect.Value, fnCode []byte) { _ = "STUB: not implemented"; return }
 
-	// ensure the code is executable
-	err := prot.MProtectRX(fnCode)
-	tool.Assert(err == nil, "protect page failed")
+// ensure the code is executable
 
-	// make a new function to receive the code
-	carrier := MakeFunc(vt.Elem(), common.PtrOf(fnCode))
+// make a new function to receive the code
 
-	// set the target with the new made function
-	target.Elem().Set(carrier)
-}
+// set the target with the new made function
 
 func MakeFunc(typ reflect.Type, addr uintptr) reflect.Value {
-	tool.Assert(addr > 0, "func pc is zero")
-	carrier := reflect.MakeFunc(typ, nil)
-	type makeFuncImpl struct {
-		fn uintptr
-	}
-	type value struct {
-		_   uintptr
-		ptr *makeFuncImpl
-	}
-	(*value)(unsafe.Pointer(&carrier)).ptr.fn = addr
-	return carrier
+	_ = "STUB: not implemented"
+	return *new(reflect.Value)
 }

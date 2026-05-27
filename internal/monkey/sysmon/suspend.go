@@ -24,32 +24,18 @@ import (
 )
 
 // SuspendSysmon Suspends the system monitor thread.
-func SuspendSysmon() (resume func()) {
-	offset := getSysmonLockOffset()
-	if offset <= 0 {
-		return func() {}
-	}
+func SuspendSysmon() (resume func()) { _ = "STUB: not implemented"; return nil }
 
-	// Calculate the actual memory address of sysmon lock
-	sysmonLockPtr := unsafe.Pointer(uintptr(unsafe.Pointer(&sched)) + offset)
+// Calculate the actual memory address of sysmon lock
 
-	// Acquire sysmon lock to pause the system monitor thread
-	lock(sysmonLockPtr)
+// Acquire sysmon lock to pause the system monitor thread
 
-	// Brief sleep to ensure sysmon is paused
-	usleep(100)
+// Brief sleep to ensure sysmon is paused
 
-	// Construct resume function
-	resume = func() {
-		unlock(sysmonLockPtr)
-	}
-	return
-}
+// Construct resume function
 
 // getSysmonLockOffset Get the sysmon lock offset for the current Go version
-func getSysmonLockOffset() uintptr {
-	return sysmonLockOffset
-}
+func getSysmonLockOffset() uintptr { _ = "STUB: not implemented"; return 0 }
 
 //go:linkname sched runtime.sched
 var sched struct{}

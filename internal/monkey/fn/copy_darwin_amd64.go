@@ -16,38 +16,12 @@
 
 package fn
 
-import (
-	"unsafe"
+func copyCode(targetCode, oriCode []byte) { _ = "STUB: not implemented"; return }
 
-	"github.com/bytedance/mockey/internal/monkey/common"
-	"github.com/bytedance/mockey/internal/tool"
-	"golang.org/x/arch/x86/x86asm"
-)
+// current code
+// length of total codes
+// index list of call instruction
 
-func copyCode(targetCode, oriCode []byte) {
-	var (
-		inst    x86asm.Inst // current code
-		n       int         // length of total codes
-		callIdx []int       // index list of call instruction
-		err     error
-	)
-	for inst.Op != x86asm.RET {
-		inst, err = x86asm.Decode(oriCode[n:], 64)
-		tool.Assert(err == nil, err)
-		tool.DebugPrintf("copyCode: inst: %v\n", inst)
-		if inst.Op == x86asm.CALL {
-			callIdx = append(callIdx, n)
-			tool.DebugPrintf("copyCode: call code: 0x%x\n", oriCode[n:n+5])
-		}
-		n += inst.Len
-	}
-	// copy function codes to the target
-	i := copy(targetCode, oriCode[:n])
-	tool.DebugPrintf("copyCode: oriCode len(%v), copied len(%v)\n", n, i)
-	// replace the relative call addresses
-	callOffset := int32(common.PtrOf(oriCode) - common.PtrOf(targetCode))
-	tool.DebugPrintf("copyCode: offset: %x\n", callOffset)
-	for _, idx := range callIdx {
-		*(*int32)(unsafe.Pointer(&targetCode[idx+1])) += callOffset
-	}
-}
+// copy function codes to the target
+
+// replace the relative call addresses

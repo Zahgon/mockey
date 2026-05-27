@@ -42,78 +42,21 @@ type MockerVar struct {
 	outerCaller tool.CallerInfo
 }
 
-func MockValue(targetPtr interface{}) *MockerVar {
-	tool.AssertPtr(targetPtr)
+func MockValue(targetPtr interface{}) *MockerVar { _ = "STUB: not implemented"; return nil }
 
-	return &MockerVar{
-		target:     reflect.ValueOf(targetPtr).Elem(),
-		origin:     reflect.ValueOf(targetPtr).Elem().Interface(),
-		targetType: reflect.TypeOf(targetPtr).Elem(),
-	}
-}
+func (mocker *MockerVar) To(value interface{}) *MockerVar { _ = "STUB: not implemented"; return nil }
 
-func (mocker *MockerVar) To(value interface{}) *MockerVar {
-	var v reflect.Type
+func (mocker *MockerVar) Patch() *MockerVar { _ = "STUB: not implemented"; return nil }
 
-	if value == nil {
-		mocker.hook = reflect.Zero(mocker.targetType)
-		v = mocker.targetType
-	} else {
-		mocker.hook = reflect.ValueOf(value)
-		v = reflect.TypeOf(value)
-	}
+func (mocker *MockerVar) UnPatch() *MockerVar { _ = "STUB: not implemented"; return nil }
 
-	tool.Assert(v.AssignableTo(mocker.targetType), "value type: %s not match target type: %s", v.Name(), mocker.targetType.Name())
-	mocker.Patch()
-	return mocker
-}
+func (mocker *MockerVar) key() uintptr { _ = "STUB: not implemented"; return 0 }
 
-func (mocker *MockerVar) Patch() *MockerVar {
-	mocker.lock.Lock()
-	defer mocker.lock.Unlock()
+func (mocker *MockerVar) name() string { _ = "STUB: not implemented"; return "" }
 
-	if !mocker.isPatched {
-		mocker.target.Set(mocker.hook)
-		mocker.isPatched = true
-		addToGlobal(mocker)
-
-		mocker.outerCaller = tool.OuterCaller()
-	}
-
-	return mocker
-}
-
-func (mocker *MockerVar) UnPatch() *MockerVar {
-	mocker.lock.Lock()
-	defer mocker.lock.Unlock()
-	if mocker.isPatched {
-		mocker.isPatched = false
-		if mocker.origin == nil {
-			mocker.target.Set(reflect.Zero(mocker.targetType))
-		} else {
-			mocker.target.Set(reflect.ValueOf(mocker.origin))
-		}
-		removeFromGlobal(mocker)
-	}
-
-	return mocker
-}
-
-func (mocker *MockerVar) key() uintptr {
-	return mocker.target.Addr().Pointer()
-}
-
-func (mocker *MockerVar) name() string {
-	if mocker.target.Kind() == reflect.String {
-		return "<string Value>"
-	}
-	return mocker.target.String()
-}
-
-func (mocker *MockerVar) unPatch() {
-	mocker.UnPatch()
-}
+func (mocker *MockerVar) unPatch() { _ = "STUB: not implemented"; return }
 
 func (mocker *MockerVar) caller() tool.CallerInfo {
-	return mocker.outerCaller
+	_ = "STUB: not implemented"
+	return *new(tool.CallerInfo)
 }

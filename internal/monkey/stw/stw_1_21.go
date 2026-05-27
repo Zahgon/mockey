@@ -25,10 +25,7 @@ import (
 
 const stwForTestResetDebugLog = 16
 
-func doStopTheWorld() (resume func()) {
-	stopTheWorld(stwForTestResetDebugLog)
-	return func() { startTheWorld() }
-}
+func doStopTheWorld() (resume func()) { _ = "STUB: not implemented"; return nil }
 
 //go:linkname stopTheWorld runtime.stopTheWorld
 func stopTheWorld(reason uint8)

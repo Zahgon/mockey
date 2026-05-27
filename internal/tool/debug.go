@@ -17,7 +17,6 @@
 package tool
 
 import (
-	"fmt"
 	"os"
 )
 
@@ -29,17 +28,8 @@ func init() {
 	}
 }
 
-func SetDebugMode() {
-	debugFlag = true
-}
+func SetDebugMode() { _ = "STUB: not implemented"; return }
 
-func IsDebug() bool {
-	return debugFlag
-}
+func IsDebug() bool { _ = "STUB: not implemented"; return false }
 
-func DebugPrintf(format string, a ...interface{}) {
-	if !IsDebug() {
-		return
-	}
-	fmt.Printf("[MOCKEY] "+format, a...)
-}
+func DebugPrintf(format string, a ...interface{}) { _ = "STUB: not implemented"; return }

@@ -42,6 +42,7 @@ func init() {
 // isGenericProxyCallExtra checks if generic function's proxy called an extra internal function
 // We check duffcopy/duffzero for passing huge params/returns and race-functions for -race option
 func isGenericProxyCallExtra(addr uintptr) (bool, string) {
+	_ = "STUB: not implemented"
 	// When function argument size is too big, golang will use duff-copy
 	// to get better performance. Thus, we will see more call-instruction
 	// in asm code.
@@ -52,26 +53,16 @@ func isGenericProxyCallExtra(addr uintptr) (bool, string) {
 	// when we use `Large15` as generic function's argument or return types,
 	// the wrapper `function[Large15]` will call `duffcopy` and `duffzero`
 	// before passing arguments and after receiving returns.
-
-	// Notice that `duff` functions are very special, they are always called
-	// in the middle of function body(not at beginning). So we should check
-	// the `call` instruction's target address with a range.
-	if addr >= duffcopyStart && addr <= duffcopyEnd {
-		return true, "diffcopy"
-	}
-
-	if addr >= duffzeroStart && addr <= duffzeroEnd {
-		return true, "duffzero"
-	}
-
-	// proxyCallRace exclude functions used for race check in unit test
-	//
-	// If we use '-race' in test command, golang may use 'racefuncenter' and 'racefuncexit' in generic
-	// function's proxy, which is toxic for us to find the original generic function implementation.
-	//
-	// So we need to exclude them. We simply exclude most of race functions defined in runtime.
-	if name, ok := proxyCallRace[addr]; ok {
-		return true, name
-	}
 	return false, ""
 }
+
+// Notice that `duff` functions are very special, they are always called
+// in the middle of function body(not at beginning). So we should check
+// the `call` instruction's target address with a range.
+
+// proxyCallRace exclude functions used for race check in unit test
+//
+// If we use '-race' in test command, golang may use 'racefuncenter' and 'racefuncexit' in generic
+// function's proxy, which is toxic for us to find the original generic function implementation.
+//
+// So we need to exclude them. We simply exclude most of race functions defined in runtime.

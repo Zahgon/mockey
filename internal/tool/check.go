@@ -20,31 +20,11 @@ import (
 	"reflect"
 )
 
-func CheckReturnValues(t reflect.Type, results ...interface{}) {
-	Assert(t.NumOut() == len(results), "return args not match: target: %v, expected count: %d, current count: %d", t, t.NumOut(), len(results))
-	for i := 0; i < t.NumOut(); i++ {
-		if results[i] == nil {
-			continue
-		}
-		Assert(reflect.TypeOf(results[i]).ConvertibleTo(t.Out(i)), "return args not match: target: %v, index: %v, current type: %v", t, i, reflect.TypeOf(results[i]))
-	}
-}
+func CheckReturnValues(t reflect.Type, results ...interface{}) { _ = "STUB: not implemented"; return }
 
-func CheckFuncReturnValues(a, b reflect.Type) {
-	Assert(a.NumOut() == b.NumOut(), "return args not match: target: %v, current: %v", a, b)
-	for indexA, indexB := 0, 0; indexA < a.NumOut(); indexA, indexB = indexA+1, indexB+1 {
-		Assert(a.Out(indexA) == b.Out(indexB), "return args not match: target: %v, current: %v", a, b)
-	}
-}
+func CheckFuncReturnValues(a, b reflect.Type) { _ = "STUB: not implemented"; return }
 
 func CheckFuncArgs(a, b reflect.Type, shiftA, shiftB int) bool {
-	if a.NumIn()-shiftA == b.NumIn()-shiftB {
-		for indexA, indexB := shiftA, shiftB; indexA < a.NumIn(); indexA, indexB = indexA+1, indexB+1 {
-			if a.In(indexA) != b.In(indexB) {
-				return false
-			}
-		}
-		return true
-	}
+	_ = "STUB: not implemented"
 	return false
 }

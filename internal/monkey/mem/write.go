@@ -16,50 +16,11 @@
 
 package mem
 
-import (
-	"runtime"
-
-	"github.com/bytedance/mockey/internal/monkey/common"
-	"github.com/bytedance/mockey/internal/monkey/stw"
-	"github.com/bytedance/mockey/internal/monkey/sysmon"
-	"github.com/bytedance/mockey/internal/tool"
-)
-
 // WriteWithSTW copies data bytes to the target address and replaces the original bytes, during which it will stop the
 // world (only the current goroutine's P is running).
-func WriteWithSTW(target uintptr, data []byte) {
-	resumeFn := suspendRuntime()
-	defer resumeFn()
+func WriteWithSTW(target uintptr, data []byte) { _ = "STUB: not implemented"; return }
 
-	begin := target
-	end := target + uintptr(len(data))
-	for begin < end {
-		if common.PageOf(begin) < common.PageOf(end) {
-			nextPage := common.PageOf(begin) + uintptr(common.PageSize())
-			buf := data[:nextPage-begin]
-			data = data[nextPage-begin:]
-			err := Write(begin, buf)
-			tool.Assert(err == nil, err)
-			begin += uintptr(len(buf))
-			continue
-		}
-		err := Write(begin, data)
-		tool.Assert(err == nil, err)
-		break
-	}
-}
+func suspendRuntime() (resume func()) { _ = "STUB: not implemented"; return nil }
 
-func suspendRuntime() (resume func()) {
-	runtime.LockOSThread()
-	stwResume := stw.StopTheWorld()
-	// Suspend the system monitor thread to avoid SIGBUS errors during memory writes
-	// See https://github.com/bytedance/mockey/issues/68 for more details.
-	sysmonResume := sysmon.SuspendSysmon()
-
-	resume = func() {
-		sysmonResume()
-		stwResume()
-		runtime.UnlockOSThread()
-	}
-	return
-}
+// Suspend the system monitor thread to avoid SIGBUS errors during memory writes
+// See https://github.com/bytedance/mockey/issues/68 for more details.

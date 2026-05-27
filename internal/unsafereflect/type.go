@@ -22,28 +22,13 @@ package unsafereflect
 import (
 	"reflect"
 	"unsafe"
-
-	"github.com/bytedance/mockey/internal/tool"
 )
 
 // MethodByName returns the method with the given name.
 // NOTE: This may fail, depending on whether the relevant function type is ignored during compilation
 func MethodByName(r reflect.Type, name string) (typ reflect.Type, addr uintptr, ok bool) {
-	rt := (*rtype)((*struct {
-		_    uintptr
-		data unsafe.Pointer
-	})(unsafe.Pointer(&r)).data)
-
-	for _, p := range rt.methods() {
-		if curName := rt.nameOff(p.name).name(); curName == name {
-			typ, addr = toType(rt.typeOff(p.mtyp)), uintptr(rt.textOff(p.tfn))
-			if typ == nil {
-				tool.DebugPrintf("[MethodByName] warn nil type, name: %v, method: %+v\n", curName, p)
-			}
-			return typ, addr, true
-		}
-	}
-	return nil, 0, false
+	_ = "STUB: not implemented"
+	return *new(reflect.Type), 0, false
 }
 
 // copy from src/reflect/type.go
@@ -72,7 +57,7 @@ type rtype struct {
 
 const kindMask = (1 << 5) - 1
 
-func (t *rtype) Kind() reflect.Kind { return reflect.Kind(t.kind & kindMask) }
+func (t *rtype) Kind() reflect.Kind { _ = "STUB: not implemented"; return *new(reflect.Kind) }
 
 type (
 	tflag   uint8
@@ -88,9 +73,7 @@ type (
 //go:linkname resolveNameOff reflect.resolveNameOff
 func resolveNameOff(unsafe.Pointer, int32) unsafe.Pointer
 
-func (t *rtype) nameOff(off nameOff) name {
-	return name{(*byte)(resolveNameOff(unsafe.Pointer(t), int32(off)))}
-}
+func (t *rtype) nameOff(off nameOff) name { _ = "STUB: not implemented"; return *new(name) }
 
 // resolveTypeOff resolves an *rtype offset from a base type.
 // The (*rtype).typeOff method is a convenience wrapper for this function.
@@ -98,19 +81,13 @@ func (t *rtype) nameOff(off nameOff) name {
 //go:linkname resolveTypeOff reflect.resolveTypeOff
 func resolveTypeOff(rtype unsafe.Pointer, off int32) unsafe.Pointer
 
-func (t *rtype) typeOff(off typeOff) *rtype {
-	return (*rtype)(resolveTypeOff(unsafe.Pointer(t), int32(off)))
-}
+func (t *rtype) typeOff(off typeOff) *rtype { _ = "STUB: not implemented"; return nil }
 
 // toType convert rtype to reflect.Type
 //
 // The conversion is not guaranteed to be successful.
 // If conversion failed, response will be nil
-func toType(r *rtype) reflect.Type {
-	var vt interface{}
-	*(*uintptr)(unsafe.Pointer(&vt)) = uintptr(unsafe.Pointer(r))
-	return reflect.TypeOf(vt)
-}
+func toType(r *rtype) reflect.Type { _ = "STUB: not implemented"; return *new(reflect.Type) }
 
 // resolveTextOff resolves a function pointer offset from a base type.
 // The (*rtype).textOff method is a convenience wrapper for this function.
@@ -120,7 +97,8 @@ func toType(r *rtype) reflect.Type {
 func resolveTextOff(unsafe.Pointer, int32) unsafe.Pointer
 
 func (t *rtype) textOff(off textOff) unsafe.Pointer {
-	return resolveTextOff(unsafe.Pointer(t), int32(off))
+	_ = "STUB: not implemented"
+	return *new(unsafe.Pointer)
 }
 
 const tflagUncommon tflag = 1 << 0
@@ -148,7 +126,8 @@ type funcType struct {
 }
 
 func add(p unsafe.Pointer, x uintptr, whySafe string) unsafe.Pointer {
-	return unsafe.Pointer(uintptr(p) + x)
+	_ = "STUB: not implemented"
+	return *new(unsafe.Pointer)
 }
 
 // interfaceType represents an interface type.
@@ -163,35 +142,7 @@ type imethod struct {
 	_ typeOff // unused .(*FuncType) underneath
 }
 
-func (t *rtype) methods() []method {
-	if t.tflag&tflagUncommon == 0 {
-		return nil
-	}
-	switch t.Kind() {
-	case reflect.Ptr:
-		return (*struct {
-			ptrType
-			u uncommonType
-		})(unsafe.Pointer(t)).u.methods()
-	case reflect.Func:
-		return (*struct {
-			funcType
-			u uncommonType
-		})(unsafe.Pointer(t)).u.methods()
-	case reflect.Interface:
-		return (*struct {
-			interfaceType
-			u uncommonType
-		})(unsafe.Pointer(t)).u.methods()
-	case reflect.Struct:
-		return (*struct {
-			structType
-			u uncommonType
-		})(unsafe.Pointer(t)).u.methods()
-	default:
-		return nil
-	}
-}
+func (t *rtype) methods() []method { _ = "STUB: not implemented"; return nil }
 
 // Method on non-interface type
 type method struct {
@@ -201,12 +152,7 @@ type method struct {
 	tfn  textOff // fn used for normal method call
 }
 
-func (t *uncommonType) methods() []method {
-	if t.mcount == 0 {
-		return nil
-	}
-	return (*[1 << 16]method)(add(unsafe.Pointer(t), uintptr(t.moff), "t.mcount > 0"))[:t.mcount:t.mcount]
-}
+func (t *uncommonType) methods() []method { _ = "STUB: not implemented"; return nil }
 
 // Struct field
 type structField struct {

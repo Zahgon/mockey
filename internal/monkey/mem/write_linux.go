@@ -16,25 +16,6 @@
 
 package mem
 
-import (
-	"fmt"
-	"reflect"
-	"syscall"
-
-	"github.com/bytedance/mockey/internal/monkey/common"
-	"github.com/bytedance/mockey/internal/tool"
-)
-
-func Write(target uintptr, data []byte) error {
-	targetPage := common.PageOf(target)
-	fnPage := common.PageOf(reflect.ValueOf(write).Pointer())
-	tool.DebugPrintf("Write: target page(0x%x), fn page(0x%x), len(%v)\n", targetPage, fnPage, len(data))
-	res := write(target, common.PtrOf(data), len(data), targetPage, common.PageSize(), syscall.PROT_READ|syscall.PROT_EXEC)
-	if res != 0 {
-		return fmt.Errorf("write failed, code %v", res)
-	}
-	tool.DebugPrintf("Write end(linux)\n")
-	return nil
-}
+func Write(target uintptr, data []byte) error { _ = "STUB: not implemented"; return nil }
 
 func write(target, data uintptr, len int, page uintptr, pageSize, oriProt int) int

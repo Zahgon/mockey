@@ -24,23 +24,23 @@ var (
 	GlobalFn2 = func(A0, int) {}
 )
 
-func Foo0(int) {}
+func Foo0(int) { _ = "STUB: not implemented"; return }
 
 type A0 struct {
 	Inner string
 }
 
-func (f A0) Foo(i int)  {}
-func (f *A0) Bar(i int) {}
+func (f A0) Foo(i int)  { _ = "STUB: not implemented"; return }
+func (f *A0) Bar(i int) { _ = "STUB: not implemented"; return }
 
-func Foo[T any](t T) {}
+func Foo[T any](t T) { _ = "STUB: not implemented"; return }
 
-func NoArgs[T any]() {}
+func NoArgs[T any]() { _ = "STUB: not implemented"; return }
 
 type A[T any] struct {
 	Inner T
 }
 
-func (f A[T]) Foo(i int)       {}
-func (f *A[T]) Bar(i int, t T) {}
-func (f *A[T]) NoArgs()        {}
+func (f A[T]) Foo(i int)       { _ = "STUB: not implemented"; return }
+func (f *A[T]) Bar(i int, t T) { _ = "STUB: not implemented"; return }
+func (f *A[T]) NoArgs()        { _ = "STUB: not implemented"; return }

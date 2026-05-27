@@ -19,6 +19,4 @@
 
 package stw
 
-func StopTheWorld() (resume func()) {
-	return doStopTheWorld()
-}
+func StopTheWorld() (resume func()) { _ = "STUB: not implemented"; return nil }

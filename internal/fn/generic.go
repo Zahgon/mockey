@@ -18,7 +18,6 @@ package fn
 
 import (
 	"reflect"
-	"unsafe"
 )
 
 var (
@@ -39,11 +38,8 @@ type GenericInfo uintptr
 // or cause unrecoverable runtime error . So it is NOT RECOMMENDED to use this function unless you actually knows what
 // you are doing.
 func (g GenericInfo) UsedParamType(n uintptr) reflect.Type {
-	var vt interface{}
-	*(*uintptr)(unsafe.Pointer(&vt)) = *(*uintptr)(unsafe.Pointer(uintptr(g) + 8*n))
-	return reflect.TypeOf(vt)
+	_ = "STUB: not implemented"
+	return *new(reflect.Type)
 }
 
-func (g GenericInfo) Equal(other GenericInfo) bool {
-	return g == other
-}
+func (g GenericInfo) Equal(other GenericInfo) bool { _ = "STUB: not implemented"; return false }
